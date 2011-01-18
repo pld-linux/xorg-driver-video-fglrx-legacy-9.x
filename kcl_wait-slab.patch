@@ -1,0 +1,10 @@
+--- common/lib/modules/fglrx/build_mod/kcl_wait.c~	2009-12-03 22:59:45.000000000 +0100
++++ common/lib/modules/fglrx/build_mod/kcl_wait.c	2011-01-18 17:02:39.249265614 +0100
+@@ -35,6 +35,7 @@
+ #include <linux/wait.h>
+ #include <linux/highmem.h>
+ #include <linux/sched.h>
++#include <linux/slab.h>
+ 
+ #include "kcl_config.h"
+ #include "kcl_wait.h"

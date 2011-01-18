@@ -1,0 +1,22 @@
+--- common/lib/modules/fglrx/build_mod/firegl_public.c~	2011-01-18 16:54:34.193081865 +0100
++++ common/lib/modules/fglrx/build_mod/firegl_public.c	2011-01-18 16:58:41.101921995 +0100
+@@ -1441,7 +1441,18 @@
+ #ifndef __HAVE_ARCH_CMPXCHG
+     return __fgl_cmpxchg(ptr,old,new,size);
+ #else
+-    return __cmpxchg(ptr,old,new,size);
++    /* expanding __cmpxchg macro causes a reference on an undefined symbol
++     * when used with non-constant size */
++    switch (size) {
++    case 1: { volatile u8 *_ptr = ptr; return cmpxchg(_ptr, old, new); }
++    case 2: { volatile u16 *_ptr = ptr; return cmpxchg(_ptr, old, new); }
++    case 4: { volatile u32 *_ptr = ptr; return cmpxchg(_ptr, old, new); }
++#ifdef __x86_64__
++    case 8: { volatile u64 *_ptr = ptr; return cmpxchg(_ptr, old, new); }
++#endif
++    default:
++        return old;
++    }
+ #endif
+ }
+ 
