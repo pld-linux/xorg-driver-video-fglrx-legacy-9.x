@@ -67,13 +67,14 @@ Requires:	xorg-xserver-server(videodrv-abi) <= 6.0
 Requires:	xorg-xserver-server(videodrv-abi) >= 2.0
 Provides:	OpenGL = 2.0
 Provides:	OpenGL-GLX = 1.4
+Provides:	xorg-driver-video
 # hack to make OpenGL ABI compatible
 %ifarch %{x8664}
 Provides:	libGL.so.1()(64bit)
 %else
 Provides:	libGL.so.1
 %endif
-%if !%{with multigl}
+%if %{without multigl}
 Obsoletes:	Mesa
 Conflicts:	Mesa-libGL
 %endif
