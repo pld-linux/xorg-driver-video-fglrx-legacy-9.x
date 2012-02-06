@@ -43,6 +43,8 @@ Group:		X11
 Source0:	http://dlmdownloads.ati.com/drivers/linux/ati-driver-installer-9-12-x86.x86_64.run
 # Source0-md5:	a6b2b52921add6f39c3bfa9d366d8820
 Source1:	%{pname}.desktop
+Source2:	10-fglrx.conf
+Source3:	10-fglrx-modules.conf
 Patch0:		%{pname}-kh.patch
 Patch1:		%{pname}-smp.patch
 Patch2:		%{pname}-x86genericarch.patch
@@ -211,6 +213,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %if %{with userspace}
 install -d $RPM_BUILD_ROOT{%{_sysconfdir}/{ati,env.d},%{_bindir},%{_sbindir},%{_pixmapsdir},%{_desktopdir},%{_datadir}/ati,%{_libdir}/xorg/modules,%{_includedir}/{X11/extensions,GL}}
+install -d $RPM_BUILD_ROOT/etc/X11/xorg.conf.d
+
+install %{SOURCE2} $RPM_BUILD_ROOT/etc/X11/xorg.conf.d
+install %{SOURCE3} $RPM_BUILD_ROOT/etc/X11/xorg.conf.d
+sed -i -e 's|@@LIBDIR@@|%{_libdir}|g' $RPM_BUILD_ROOT/etc/X11/xorg.conf.d/10-fglrx-modules.conf
 
 install common%{_bindir}/{amdcccle,aticonfig,atiodcli,atiode,fgl_glxgears,fglrx_xgamma,fglrxinfo} \
 	$RPM_BUILD_ROOT%{_bindir}
@@ -297,6 +304,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/xorg/modules/amdxmm.so
 %attr(755,root,root) %{_libdir}/xorg/modules/glesx.so
 %attr(755,root,root) %{_libdir}/xorg/modules/esut.a
+%{_sysconfdir}/X11/xorg.conf.d/10-fglrx.conf
+%{_sysconfdir}/X11/xorg.conf.d/10-fglrx-modules.conf
 
 %files libdri
 %defattr(644,root,root,755)
