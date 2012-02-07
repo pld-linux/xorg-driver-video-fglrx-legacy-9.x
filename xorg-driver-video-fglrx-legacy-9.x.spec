@@ -31,12 +31,13 @@
 %define		arch_dir	x86_64
 %endif
 
+%define		rel		0.1
 %define		pname		xorg-driver-video-fglrx
 Summary:	Linux Drivers for ATI graphics accelerators
 Summary(pl.UTF-8):	Sterowniki do akceleratorów graficznych ATI
 Name:		%{pname}-legacy-%{legacy}%{_alt_kernel}
 Version:	9.12
-Release:	0.1
+Release:	%{rel}
 Epoch:		1
 License:	ATI Binary (parts are GPL)
 Group:		X11
@@ -80,6 +81,9 @@ Obsoletes:	XFree86-OpenGL-libGL < 1:7.0.0
 Obsoletes:	XFree86-driver-firegl < 1:7.0.0
 ExclusiveArch:	i586 i686 athlon pentium3 pentium4 %{x8664}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+# constify %rel macro, so it wouldn't expand in kernel subpkgs
+%{expand:%%global rel %{release}}
 
 %define		_ccver	%(rpm -q --qf "%{VERSION}" gcc | sed 's/\\..*//')
 
