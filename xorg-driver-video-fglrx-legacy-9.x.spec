@@ -82,7 +82,7 @@ ExclusiveArch:	i586 i686 athlon pentium3 pentium4 %{x8664}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # constify %rel macro, so it wouldn't expand in kernel subpkgs
-%{expand:%%global rel %{release}}
+%{expand:%%global release %{release}}
 
 %define		_ccver	%(rpm -q --qf "%{VERSION}" gcc | sed 's/\\..*//')
 
