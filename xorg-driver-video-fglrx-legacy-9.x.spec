@@ -31,12 +31,13 @@
 %define		arch_dir	x86_64
 %endif
 
+%define		rel		0.1
 %define		pname		xorg-driver-video-fglrx
 Summary:	Linux Drivers for ATI graphics accelerators
 Summary(pl.UTF-8):	Sterowniki do akceleratorów graficznych ATI
 Name:		%{pname}-legacy-%{legacy}%{_alt_kernel}
 Version:	9.12
-Release:	0.1
+Release:	%{rel}
 Epoch:		1
 License:	ATI Binary (parts are GPL)
 Group:		X11
@@ -60,8 +61,8 @@ BuildRequires:	xorg-lib-libXxf86vm-devel
 BuildRequires:	xorg-proto-recordproto-devel
 BuildRequires:	xorg-proto-xf86miscproto-devel
 BuildRequires:	xorg-proto-xf86vidmodeproto-devel
-Requires:	%{pname}-libdri = %{epoch}:%{version}-%{release}
-Requires:	%{pname}-libglx = %{epoch}:%{version}-%{release}
+Requires:	%{pname}-libdri = %{epoch}:%{version}-%{rel}
+Requires:	%{pname}-libglx = %{epoch}:%{version}-%{rel}
 Requires:	xorg-xserver-server
 Requires:	xorg-xserver-server(videodrv-abi) <= 6.0
 Requires:	xorg-xserver-server(videodrv-abi) >= 2.0
@@ -80,9 +81,6 @@ Obsoletes:	XFree86-OpenGL-libGL < 1:7.0.0
 Obsoletes:	XFree86-driver-firegl < 1:7.0.0
 ExclusiveArch:	i586 i686 athlon pentium3 pentium4 %{x8664}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-# constify %rel macro, so it wouldn't expand in kernel subpkgs
-%{expand:%%global release %{release}}
 
 %define		_ccver	%(rpm -q --qf "%{VERSION}" gcc | sed 's/\\..*//')
 
@@ -132,7 +130,7 @@ Biblioteka rozszerzenia GLX dla serwera X.org with fglrx driver.
 Summary:	Header files for development for the ATI Radeon cards proprietary driver
 Summary(pl.UTF-8):	Pliki nagłówkowe do programowania z użyciem własnościowego sterownika dla kart ATI Radeon
 Group:		X11/Development/Libraries
-Requires:	%{pname} = %{epoch}:%{version}-%{release}
+Requires:	%{pname} = %{epoch}:%{version}-%{rel}
 # or more?
 Requires:	xorg-proto-glproto-devel
 
@@ -148,7 +146,7 @@ ATI dla kart graficznych Radeon.
 Summary:	Static libraries for development for the ATI Radeon cards proprietary driver
 Summary(pl.UTF-8):	Biblioteki statyczne do programowania z użyciem własnościowego sterownika dla kart ATI Radeon
 Group:		X11/Development/Libraries
-Requires:	%{pname}-devel = %{epoch}:%{version}-%{release}
+Requires:	%{pname}-devel = %{epoch}:%{version}-%{rel}
 
 %description static
 Static libraries for development for the ATI proprietary driver for
@@ -161,7 +159,7 @@ sterownika ATI dla kart graficznych ATI Radeon.
 %package -n kernel%{_alt_kernel}-video-firegl-legacy-%{legacy}
 Summary:	ATI kernel module for FireGL support
 Summary(pl.UTF-8):	Moduł jądra oferujący wsparcie dla ATI FireGL
-Release:	%{release}@%{_kernel_ver_str}
+Release:	%{rel}@%{_kernel_ver_str}
 License:	ATI
 Group:		Base/Kernel
 %{?with_dist_kernel:%requires_releq_kernel}
