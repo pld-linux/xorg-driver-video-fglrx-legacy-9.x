@@ -31,13 +31,12 @@
 %define		arch_dir	x86_64
 %endif
 
-%define		rel		0.1
 %define		pname		xorg-driver-video-fglrx
 Summary:	Linux Drivers for ATI graphics accelerators
 Summary(pl.UTF-8):	Sterowniki do akceleratorów graficznych ATI
 Name:		%{pname}-legacy-%{legacy}%{_alt_kernel}
 Version:	9.12
-Release:	%{rel}
+Release:	0.1
 Epoch:		1
 License:	ATI Binary (parts are GPL)
 Group:		X11
