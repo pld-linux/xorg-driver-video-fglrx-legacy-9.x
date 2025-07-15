@@ -186,8 +186,8 @@ cp arch/%{arch_dir}/lib/modules/fglrx/build_mod/* common/lib/modules/fglrx/build
 cd common
 %if %{with dist_kernel}
 %patch -P0 -p2
-#%patch1 -p0
-#%patch2 -p0
+#%%patch1 -p0
+#%%patch2 -p0
 %endif
 cd -
 
