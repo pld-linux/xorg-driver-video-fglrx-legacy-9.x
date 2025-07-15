@@ -180,12 +180,12 @@ cp arch/%{arch_dir}/lib/modules/fglrx/build_mod/* common/lib/modules/fglrx/build
 %{__sed} -i "s,linux/\(utsrelease.h\),generated/\1, ; \
 	402 s,ioctl,unlocked_ioctl," \
 	common/lib/modules/fglrx/build_mod/firegl_public.c
-%patch3 -p0
-%patch4 -p0
+%patch -P3 -p0
+%patch -P4 -p0
 
 cd common
 %if %{with dist_kernel}
-%patch0 -p2
+%patch -P0 -p2
 #%patch1 -p0
 #%patch2 -p0
 %endif
